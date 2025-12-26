@@ -261,15 +261,21 @@ function debounce(func, wait) {
 }
 
 /**
- * Add navbar background on scroll
+ * Add navbar background on scroll - respects theme
  */
 window.addEventListener('scroll', throttle(() => {
   const navbar = document.querySelector('.navbar');
+  const isLightMode = document.documentElement.getAttribute('data-theme') === 'light';
+
   if (navbar) {
     if (window.scrollY > 50) {
-      navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+      navbar.style.background = isLightMode
+        ? 'rgba(255, 255, 255, 0.98)'
+        : 'rgba(10, 10, 15, 0.95)';
     } else {
-      navbar.style.background = 'rgba(10, 10, 15, 0.8)';
+      navbar.style.background = isLightMode
+        ? 'rgba(255, 255, 255, 0.9)'
+        : 'rgba(10, 10, 15, 0.8)';
     }
   }
 }, 100));
