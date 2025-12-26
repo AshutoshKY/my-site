@@ -12,6 +12,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize all modules
+  initThemeToggle();
   initNavigation();
   initScrollReveal();
   initBackToTop();
@@ -21,17 +22,41 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Theme Toggle (Dark/Light Mode)
+ */
+function initThemeToggle() {
+  const themeToggle = document.getElementById('themeToggle');
+  const html = document.documentElement;
+
+  // Check for saved theme preference or default to dark
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  if (savedTheme === 'light') {
+    html.setAttribute('data-theme', 'light');
+  }
+
+  if (!themeToggle) return;
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    html.setAttribute('data-theme', newTheme === 'light' ? 'light' : '');
+    localStorage.setItem('theme', newTheme);
+  });
+}
+
+/**
  * Mobile Navigation Toggle
  */
 function initNavigation() {
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
-  
+
   if (!navToggle || !navLinks) return;
-  
+
   navToggle.addEventListener('click', () => {
     navLinks.classList.toggle('active');
-    
+
     // Animate hamburger
     const spans = navToggle.querySelectorAll('span');
     spans.forEach((span, index) => {
@@ -45,7 +70,7 @@ function initNavigation() {
       }
     });
   });
-  
+
   // Close nav on link click (mobile)
   navLinks.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
@@ -65,15 +90,15 @@ function initNavigation() {
  */
 function initScrollReveal() {
   const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-  
+
   if (!revealElements.length) return;
-  
+
   const observerOptions = {
     root: null,
     rootMargin: '0px',
     threshold: 0.1
   };
-  
+
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -83,7 +108,7 @@ function initScrollReveal() {
       }
     });
   }, observerOptions);
-  
+
   revealElements.forEach(element => {
     revealObserver.observe(element);
   });
@@ -94,9 +119,9 @@ function initScrollReveal() {
  */
 function initBackToTop() {
   const backToTop = document.getElementById('backToTop');
-  
+
   if (!backToTop) return;
-  
+
   // Show/hide based on scroll position
   const toggleBackToTop = () => {
     if (window.scrollY > 500) {
@@ -105,9 +130,9 @@ function initBackToTop() {
       backToTop.classList.remove('visible');
     }
   };
-  
+
   window.addEventListener('scroll', throttle(toggleBackToTop, 100));
-  
+
   // Scroll to top on click
   backToTop.addEventListener('click', () => {
     window.scrollTo({
@@ -123,17 +148,17 @@ function initBackToTop() {
 function initActiveNavLinks() {
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
-  
+
   if (!sections.length || !navLinks.length) return;
-  
+
   const highlightNav = () => {
     const scrollY = window.scrollY;
-    
+
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 100;
       const sectionHeight = section.offsetHeight;
       const sectionId = section.getAttribute('id');
-      
+
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
         navLinks.forEach(link => {
           link.classList.remove('active');
@@ -144,7 +169,7 @@ function initActiveNavLinks() {
       }
     });
   };
-  
+
   window.addEventListener('scroll', throttle(highlightNav, 100));
 }
 
@@ -155,18 +180,18 @@ function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const href = anchor.getAttribute('href');
-      
+
       // Skip if it's just "#"
       if (href === '#') return;
-      
+
       const target = document.querySelector(href);
-      
+
       if (target) {
         e.preventDefault();
-        
+
         const navHeight = document.querySelector('.navbar')?.offsetHeight || 80;
         const targetPosition = target.offsetTop - navHeight;
-        
+
         window.scrollTo({
           top: targetPosition,
           behavior: 'smooth'
@@ -182,14 +207,14 @@ function initSmoothScroll() {
  */
 function initFormHandling() {
   const form = document.querySelector('.contact-form');
-  
+
   if (!form) return;
-  
+
   form.addEventListener('submit', (e) => {
     // If using Formspree or similar, let it handle the submission
     // This is for visual feedback
     const submitBtn = form.querySelector('.form-submit');
-    
+
     if (submitBtn) {
       const originalText = submitBtn.innerHTML;
       submitBtn.innerHTML = `
@@ -200,7 +225,7 @@ function initFormHandling() {
         Sending...
       `;
       submitBtn.disabled = true;
-      
+
       // Note: If you're handling the form with JavaScript,
       // you would reset the button after completion
       // For now, letting the form submit naturally
@@ -214,7 +239,7 @@ function initFormHandling() {
  */
 function throttle(func, limit) {
   let inThrottle;
-  return function(...args) {
+  return function (...args) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
@@ -229,7 +254,7 @@ function throttle(func, limit) {
  */
 function debounce(func, wait) {
   let timeout;
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timeout);
     timeout = setTimeout(() => func.apply(this, args), wait);
   };
