@@ -8,8 +8,10 @@
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
   --bg-tertiary: #1a1a25;
-  --bg-card: rgba(26, 26, 37, 0.7);
+  --bg-card: rgba(26, 26, 37, 0.95);
   --bg-card-hover: rgba(36, 36, 50, 0.8);
+
+  --orbit-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 2px rgba(0, 0, 0, 0.8);
 
   /* Glass effect */
   --glass-bg: rgba(255, 255, 255, 0.03);
@@ -133,7 +135,9 @@
   --bg-card: rgba(255, 255, 255, 0.9);
   --bg-card-hover: rgba(245, 245, 247, 0.95);
 
-  --glass-bg: rgba(0, 0, 0, 0.02);
+  --orbit-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+
+  --glass-bg: rgba(255, 255, 255, 0.4);
   --glass-border: rgba(0, 0, 0, 0.1);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 

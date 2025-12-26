@@ -27,9 +27,7 @@
 
   <title>Ashutosh Kumar Yadav | Software Development Engineer</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+  <!-- No favicon -->
 
   <!-- Stylesheets -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -151,21 +149,15 @@
       </div>
       <div class="hero-visual">
         <div class="hero-blob"></div>
-        <div class="hero-image-wrapper">
+        <div class="hero-image-wrapper" id="heroOrbit">
           <div class="hero-image">
-            👨‍💻
+            <div class="speech-bubble">hey! 👋</div>
+            <img src="assets/images/profile.png" alt="Ashutosh" class="profile-img">
           </div>
-        </div>
-        <div class="floating-element top-right">
-          <span>🚀</span> Golang Expert
-        </div>
-        <div class="floating-element bottom-left">
-          <span>🔧</span> Systems Design
-        </div>
-        <div class="floating-element bottom-right">
-          <span>🤖</span> AI/LLM Automation
+          <!-- Orbit objects spawned by JS -->
         </div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -755,7 +747,9 @@
             </div>
           </a>
         </div>
-        <a href="assets/resume/AshutoshKY_Resume.pdf" download class="btn btn-primary resume-download">
+        <a href="assets/resume/AshutoshKY_Resume.pdf" download
+          onclick="gtag('event', 'download', {'event_category': 'resume', 'event_label': 'hero_button'})"
+          class="btn btn-primary resume-download">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -788,7 +782,7 @@
   <footer class="footer">
     <div class="container">
       <p class="footer-text">
-        © 2024 <a href="#">Ashutosh Kumar Yadav</a>. Built with ❤️
+        © 2026 <a href="#">Ashutosh Kumar Yadav</a>. Built with ❤️
       </p>
       <div class="footer-links">
         <a href="#about" class="footer-link">About</a>

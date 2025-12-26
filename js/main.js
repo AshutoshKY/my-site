@@ -19,7 +19,103 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNavLinks();
   initSmoothScroll();
   initFormHandling();
+  // initOrbitingEmojis(); // Disabled per user request
+  initAvatarAnimation();
 });
+
+/**
+ * Avatar Profile Animation (Cycling Logos)
+ */
+function initAvatarAnimation() {
+  const profileImg = document.querySelector('.profile-img');
+  if (!profileImg) return;
+
+  const frames = [
+    'assets/images/frames/frame_0.png',
+    'assets/images/frames/frame_1.png',
+    'assets/images/frames/frame_2.png',
+    'assets/images/frames/frame_3.png'
+  ];
+
+  // Preload images
+  frames.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  let currentFrame = 0;
+
+  setInterval(() => {
+    currentFrame = (currentFrame + 1) % frames.length;
+    profileImg.src = frames[currentFrame];
+  }, 1000); // 1 second interval
+}
+
+/**
+ * Orbiting Emojis Animation
+ */
+function initOrbitingEmojis() {
+  const container = document.getElementById('heroOrbit');
+  if (!container) return;
+
+  const emojis = [
+    // Space & Sci-Fi
+    '☄️', '🪐', '👽', '🛸', '🌑', '⭐', '🌌', '🚀', '🛰️', '🔭', '👾', '🤖',
+    // Dinosaurs & Ancient
+    '🦖', '🦕', '🌋', '🦴', '🥚', '🦠', '🧬',
+    // Nature & Elements
+    '🌱', '🌿', '🌵', '🌴', '🌲', '🍄', '🪨', '🌪️', '🔥', '⚡', '❄️', '🌊',
+    // Tech & Hardware
+    '💾', '💿', '📼', '📷', '🔋', '🔌', '🕹️', '🧱', '🧪', '⚙️', '🎰', '🎲'
+  ];
+
+  function spawnEmoji() {
+    const emoji = document.createElement('div');
+    emoji.className = 'orbit-object';
+    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+    // Random start position on circle edge
+    const startAngle = Math.random() * Math.PI * 2;
+    const endAngle = startAngle + Math.PI * (0.5 + Math.random()); // Move 90-270 degrees
+    const radius = 160; // Circle radius
+
+    const startX = 160 + Math.cos(startAngle) * radius;
+    const startY = 160 + Math.sin(startAngle) * radius;
+    const endX = 160 + Math.cos(endAngle) * radius;
+    const endY = 160 + Math.sin(endAngle) * radius;
+
+    // Set initial position
+    emoji.style.left = startX + 'px';
+    emoji.style.top = startY + 'px';
+    emoji.style.opacity = '0';
+
+    container.appendChild(emoji);
+
+    // Animate
+    const duration = 3000 + Math.random() * 2000;
+    const keyframes = [
+      { left: startX + 'px', top: startY + 'px', opacity: 0, transform: 'scale(0.5)' },
+      { left: (startX + endX) / 2 + 'px', top: (startY + endY) / 2 - 20 + 'px', opacity: 1, transform: 'scale(1)', offset: 0.5 },
+      { left: endX + 'px', top: endY + 'px', opacity: 0, transform: 'scale(0.5)' }
+    ];
+
+    emoji.animate(keyframes, {
+      duration: duration,
+      easing: 'ease-in-out'
+    }).onfinish = () => emoji.remove();
+  }
+
+  // Spawn emojis at random intervals
+  function scheduleNext() {
+    setTimeout(() => {
+      spawnEmoji();
+      scheduleNext();
+    }, 400 + Math.random() * 800);
+  }
+
+  // Start spawning
+  scheduleNext();
+}
 
 /**
  * Theme Toggle (Dark/Light Mode)
