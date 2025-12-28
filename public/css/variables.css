@@ -1,37 +1,37 @@
 /* ===============================================
    DESIGN SYSTEM - CSS Variables
-   Pure Black & White Theme (95/5)
+   Pure Black Theme - Subtle Highlights
    =============================================== */
 
 :root {
-  /* Colors - Pure Black Theme */
+  /* Colors - Pure Black Theme (NO gray backgrounds) */
   --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --bg-tertiary: #111111;
-  --bg-card: rgba(10, 10, 10, 0.95);
-  --bg-card-hover: rgba(20, 20, 20, 0.95);
+  --bg-secondary: #000000;
+  --bg-tertiary: #000000;
+  --bg-card: transparent;
+  --bg-card-hover: transparent;
 
-  --orbit-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+  --orbit-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
 
-  /* Glass effect */
-  --glass-bg: rgba(255, 255, 255, 0.02);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  /* Glass effect - disabled */
+  --glass-bg: transparent;
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: none;
 
-  /* Text Colors */
+  /* Text Colors - White with varying opacity (no gray) */
   --text-primary: #ffffff;
-  --text-secondary: #888888;
-  --text-muted: #555555;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
 
-  /* Accent Colors (Pure White) */
+  /* Accent Colors - Pure White, no gray */
   --accent-primary: #ffffff;
-  --accent-secondary: #aaaaaa;
-  --accent-gradient: linear-gradient(135deg, #ffffff 0%, #888888 100%);
-  --accent-gradient-reverse: linear-gradient(135deg, #888888 0%, #ffffff 100%);
+  --accent-secondary: rgba(255, 255, 255, 0.6);
+  --accent-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 100%);
+  --accent-gradient-reverse: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.9) 100%);
 
   /* Status Colors */
   --success: #ffffff;
-  --warning: #aaaaaa;
+  --warning: rgba(255, 255, 255, 0.7);
   --error: #ff4444;
 
   /* Typography */
