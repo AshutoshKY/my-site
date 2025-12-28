@@ -89,9 +89,8 @@ section {
     pointer-events: none;
     z-index: -1;
     background:
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.12), transparent),
-        radial-gradient(ellipse 60% 40% at 100% 50%, rgba(124, 58, 237, 0.08), transparent),
-        radial-gradient(ellipse 60% 40% at 0% 80%, rgba(0, 212, 255, 0.06), transparent);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 255, 255, 0.03), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 50%, rgba(255, 255, 255, 0.02), transparent);
 }
 
 .bg-grid {
@@ -328,11 +327,20 @@ section {
     animation: gradientShift 4s ease infinite;
 }
 
+.hero-meta {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-bottom: var(--space-3);
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 150ms;
+    opacity: 0;
+}
+
 .hero-subtitle {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
     color: var(--text-secondary);
     margin-bottom: var(--space-6);
-    max-width: 500px;
+    max-width: 480px;
     animation: fadeInUp 0.6s ease forwards;
     animation-delay: 200ms;
     opacity: 0;
@@ -366,7 +374,7 @@ section {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
 }
 
 .btn-secondary {
@@ -429,8 +437,8 @@ section {
     width: 400px;
     height: 400px;
     background: var(--accent-gradient);
-    opacity: 0.2;
-    filter: blur(80px);
+    opacity: 0.1;
+    filter: blur(100px);
     animation: blobMorph 8s ease-in-out infinite;
 }
 
@@ -445,30 +453,30 @@ section {
     z-index: 1;
 }
 
-/* Revolving Aura Glow */
+/* Revolving Aura Glow (B&W) */
 .hero-image-wrapper::before {
     content: '';
     position: absolute;
     inset: -3px;
     border-radius: 50%;
     padding: 4px;
-    background: conic-gradient(from 0deg, transparent 0%, #00d4ff 10%, #0066cc 50%, #00d4ff 90%, transparent 100%);
+    background: conic-gradient(from 0deg, transparent 0%, #ffffff 10%, #888888 50%, #ffffff 90%, transparent 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     animation: rotateAura 4s linear infinite;
-    filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.3));
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
     z-index: -1;
 }
 
-/* Inner glow ring */
+/* Inner glow ring (B&W) */
 .hero-image-wrapper::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.1), inset 0 0 10px rgba(0, 212, 255, 0.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05), inset 0 0 10px rgba(255, 255, 255, 0.02);
     z-index: -1;
     animation: pulseAura 3s ease-in-out infinite;
 }
