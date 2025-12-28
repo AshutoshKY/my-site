@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormHandling();
   // initOrbitingEmojis(); // Disabled per user request
   initAvatarAnimation();
-  initAudioToggle();
+  initBackgroundParticles();
 });
 
 /**
@@ -125,6 +125,29 @@ function initThemeToggle() {
   const themeToggle = document.getElementById('themeToggle');
   const html = document.documentElement;
 
+  // Create theme toggle sound
+  let audioContext;
+  function playToggleSound(isDark) {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    // Higher pitch for light, lower for dark
+    oscillator.frequency.value = isDark ? 400 : 700;
+    oscillator.type = 'sine';
+
+    gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.12);
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.12);
+  }
+
   // Check for saved theme preference or default to dark
   const savedTheme = localStorage.getItem('theme') || 'dark';
   if (savedTheme === 'light') {
@@ -139,6 +162,7 @@ function initThemeToggle() {
 
     html.setAttribute('data-theme', newTheme === 'light' ? 'light' : '');
     localStorage.setItem('theme', newTheme);
+    playToggleSound(newTheme === 'dark');
   });
 }
 
@@ -198,10 +222,8 @@ function initScrollReveal() {
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && !entry.target.classList.contains('active')) {
         entry.target.classList.add('active');
-        // Optional: stop observing after reveal
-        // revealObserver.unobserve(entry.target);
       }
     });
   }, observerOptions);
@@ -219,6 +241,28 @@ function initBackToTop() {
 
   if (!backToTop) return;
 
+  // Create click sound using Web Audio API
+  let audioContext;
+  function playClickSound() {
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.frequency.value = 600;
+    oscillator.type = 'sine';
+
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.15);
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.15);
+  }
+
   // Show/hide based on scroll position
   const toggleBackToTop = () => {
     if (window.scrollY > 500) {
@@ -230,8 +274,9 @@ function initBackToTop() {
 
   window.addEventListener('scroll', throttle(toggleBackToTop, 100));
 
-  // Scroll to top on click
+  // Scroll to top on click with sound
   backToTop.addEventListener('click', () => {
+    playClickSound();
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -435,4 +480,41 @@ function initAudioToggle() {
       audioToggle.classList.remove('playing');
     }
   });
+}
+
+/**
+ * Background Particles Animation
+ * Creates very dim floating particles across the page
+ */
+function initBackgroundParticles() {
+  const container = document.getElementById('bgParticles');
+  if (!container) return;
+
+  const particleCount = 30;
+
+  for (let i = 0; i < particleCount; i++) {
+    createParticle(container, i);
+  }
+}
+
+function createParticle(container, index) {
+  const particle = document.createElement('div');
+  particle.className = 'bg-particle';
+
+  // Random position
+  particle.style.left = Math.random() * 100 + '%';
+
+  // Random size (2-4px)
+  const size = 2 + Math.random() * 2;
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+
+  // Random animation duration (15-35s)
+  const duration = 15 + Math.random() * 20;
+  particle.style.animationDuration = duration + 's';
+
+  // Random delay (spread out)
+  particle.style.animationDelay = (index * 0.5) + 's';
+
+  container.appendChild(particle);
 }
