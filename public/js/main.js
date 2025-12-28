@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormHandling();
   // initOrbitingEmojis(); // Disabled per user request
   initAvatarAnimation();
+  initAudioToggle();
 });
 
 /**
@@ -413,3 +414,25 @@ function initTypingEffect() {
   type();
 }
 */
+
+/**
+ * Audio Toggle
+ */
+function initAudioToggle() {
+  const audioToggle = document.getElementById('audioToggle');
+  const bgMusic = document.getElementById('bgMusic');
+
+  if (!audioToggle || !bgMusic) return;
+
+  bgMusic.volume = 0.3;
+
+  audioToggle.addEventListener('click', () => {
+    if (bgMusic.paused) {
+      bgMusic.play();
+      audioToggle.classList.add('playing');
+    } else {
+      bgMusic.pause();
+      audioToggle.classList.remove('playing');
+    }
+  });
+}

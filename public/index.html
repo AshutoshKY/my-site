@@ -380,7 +380,12 @@
           <div class="timeline-content">
             <span class="timeline-date">Jul 2024 – Present</span>
             <h3 class="timeline-title">Software Development Engineer</h3>
-            <p class="timeline-company">Razorpay Software Pvt Ltd, Bangalore</p>
+            <p class="timeline-company">
+              <svg class="company-logo" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+              at <a href="https://razorpay.com" target="_blank" rel="noopener">razorpay.com</a>
+            </p>
             <div class="timeline-description">
               <ul>
                 <li>Built Rize Incorporation Self-Serve Platform from 0→1, scaling to 600+ incorporations/month, 1100+
@@ -411,7 +416,12 @@
           <div class="timeline-content">
             <span class="timeline-date">Sep 2023 – Jul 2024</span>
             <h3 class="timeline-title">Product Development Engineer – Intern</h3>
-            <p class="timeline-company">Razorpay Software Pvt Ltd, Bangalore</p>
+            <p class="timeline-company">
+              <svg class="company-logo" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+              at <a href="https://razorpay.com" target="_blank" rel="noopener">razorpay.com</a>
+            </p>
             <div class="timeline-description">
               <ul>
                 <li>Sole backend owner of Rize microservice; integrated Marketplace, launched D2C+ community, onboarded
@@ -831,6 +841,22 @@
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg>
   </button>
+
+  <!-- Audio Toggle -->
+  <button class="audio-toggle" id="audioToggle" aria-label="Toggle audio">
+    <svg class="audio-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    </svg>
+    <svg class="audio-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </button>
+  <audio id="bgMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- JavaScript -->
   <script src="js/main.js"></script>
