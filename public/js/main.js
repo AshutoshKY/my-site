@@ -160,9 +160,32 @@ function initThemeToggle() {
     const currentTheme = html.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-    html.setAttribute('data-theme', newTheme === 'light' ? 'light' : '');
-    localStorage.setItem('theme', newTheme);
-    playToggleSound(newTheme === 'dark');
+    const rect = themeToggle.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const maxR = Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy));
+
+    const applyTheme = () => {
+      html.setAttribute('data-theme', newTheme === 'light' ? 'light' : '');
+      localStorage.setItem('theme', newTheme);
+      playToggleSound(newTheme === 'dark');
+    };
+
+    if (!document.startViewTransition) {
+      applyTheme();
+      return;
+    }
+
+    html.style.setProperty('--vt-cx', cx + 'px');
+    html.style.setProperty('--vt-cy', cy + 'px');
+
+    const transition = document.startViewTransition(applyTheme);
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        { clipPath: [`circle(0px at ${cx}px ${cy}px)`, `circle(${maxR}px at ${cx}px ${cy}px)`] },
+        { duration: 600, easing: 'ease-in-out', pseudoElement: '::view-transition-new(root)', fill: 'both' }
+      );
+    });
   });
 }
 

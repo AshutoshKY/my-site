@@ -296,3 +296,12 @@
     opacity: 1;
     transform: scale(1);
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+}
+
+::view-transition-new(root) {
+    clip-path: circle(0px at var(--vt-cx, 50%) var(--vt-cy, 50%));
+}
